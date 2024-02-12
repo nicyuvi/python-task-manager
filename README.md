@@ -16,3 +16,9 @@ Save to File: Save the tasks to a file so that they persist even after the progr
 ```
 python main.py
 ```
+## Concepts learned:
+- Basic data structures with `dict` 
+- `with` keyword and it's use case with `open()`
+- Basic OOP implementation with instance methods and methods running on instantiating a class
+- User inputs
+- try/except blocks for handling exceptions such as `KeyboardInterrupt` 

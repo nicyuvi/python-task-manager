@@ -1,4 +1,5 @@
-Create a simple command-line task manager that allows users to add, view, and delete tasks. This project will cover fundamental concepts such as data structures, file handling, and basic user input.
+## Overview
+Create a simple command-line task manager that allows users to add, view, and delete tasks.
 
 ## Features
 Add Task: Allow users to add tasks with a title and description. Each task should have a unique identifier.

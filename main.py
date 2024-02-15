@@ -1,8 +1,10 @@
 import json
-from typing import Dict, List
 from uuid import uuid4
 from utils import input_with_prefill
-from contants import prompt_title, prompt_desc, prompt_edit, prompt_delete
+from constants import prompt_title, prompt_desc, prompt_edit, prompt_delete
+from typing import Dict, TypeAlias
+
+Tasks: TypeAlias = list[Dict[str, str]]
 
 
 class TaskId():
@@ -11,8 +13,6 @@ class TaskId():
 
 
 class TaskController():
-    # def get_task(self, task_id):
-    #     #get task
 
     def load_tasks(self):
         # need try/except bc this will error if file does not exists
@@ -27,7 +27,10 @@ class TaskController():
         with open('tasks.json', 'w') as file:
             json.dump(tasks, file, indent=4)
 
-    def add_task(self, tasks: List[Dict[str, str]], title, description):
+    def add_task(self, tasks: Tasks):
+        print('Add Task')
+        title = input(prompt_title)
+        description = input(prompt_desc)
         task_id = TaskId()
         new_task = {'id': task_id.uid, 'title': title,
                     'description': description}
@@ -36,12 +39,14 @@ class TaskController():
     def view_tasks(self, tasks):
         print('Current Tasks: ', tasks)
 
-    def delete_task(self, tasks, task_id):
+    def delete_task(self, tasks: Tasks):
+        task_id = input(prompt_delete)
         for index, task in enumerate(tasks):
             if task['id'] == str(task_id):
                 tasks.pop(index)
 
-    def edit_task(self, tasks: List[Dict[str, str]],  task_id: str):
+    def edit_task(self, tasks: Tasks):
+        task_id = input(prompt_edit)
         for task in tasks:
             if task['id'] == str(task_id):
                 task['title'] = input_with_prefill(
@@ -64,18 +69,13 @@ def main():
             choice = input('Please select an option: ')
 
             if choice == '1':
-                print('Add Task')
-                title = input(prompt_title)
-                description = input(prompt_desc)
-                task.add_task(tasks, title, description)
+                task.add_task(tasks)
             elif choice == '2':
                 task.view_tasks(tasks)
             elif choice == '3':
-                task_id = input(prompt_delete)
-                task.delete_task(tasks, task_id)
+                task.delete_task(tasks)
             elif choice == '4':
-                task_id = input(prompt_edit)
-                task.edit_task(tasks, task_id)
+                task.edit_task(tasks)
             elif choice == '5':
                 task.save_tasks(tasks)
                 break
